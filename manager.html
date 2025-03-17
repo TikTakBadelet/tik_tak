@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manager Dashboard - Delivery Management System</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="manager.css">
+</head>
+<body>
+    <header>
+        <div class="logo">Delivery Management System</div>
+        <div class="user-info">
+            <span id="userDisplay"></span>
+            <button id="logoutBtn" class="btn-logout">Logout</button>
+        </div>
+    </header>
+    
+    <div class="container">
+        <div class="sidebar">
+            <ul class="nav-menu">
+                <li class="nav-item active" data-tab="dashboard">Dashboard</li>
+                <li class="nav-item" data-tab="stores">Manage Stores</li>
+                <li class="nav-item" data-tab="deliveries">Track Deliveries</li>
+                <li class="nav-item" data-tab="mileage">Motorcycle Mileage</li>
+                <li class="nav-item" data-tab="statistics">Statistics</li>
+            </ul>
+        </div>
+        
+        <div class="content">
+            <!-- Dashboard Tab -->
+            <div class="tab-content active" id="dashboard">
+                <h2>Dashboard</h2>
+                <div class="dashboard-cards">
+                    <div class="card">
+                        <h3>Total Stores</h3>
+                        <p id="totalStores">0</p>
+                    </div>
+                    <div class="card">
+                        <h3>Total Deliveries</h3>
+                        <p id="totalDeliveries">0</p>
+                    </div>
+                    <div class="card">
+                        <h3>Active Workers</h3>
+                        <p id="activeWorkers">0</p>
+                    </div>
+                    <div class="card">
+                        <h3>Today's Deliveries</h3>
+                        <p id="todayDeliveries">0</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Stores Tab -->
+            <div class="tab-content" id="stores">
+                <h2>Manage Stores</h2>
+                <div class="action-bar">
+                    <button id="addStoreBtn" class="btn">Add New Store</button>
+                </div>
+                <div class="store-form" id="storeForm" style="display: none;">
+                    <h3>Add New Store</h3>
+                    <form id="newStoreForm">
+                        <div class="form-group">
+                            <label for="storeName">Store Name</label>
+                            <input type="text" id="storeName" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="storeAddress">Address</label>
+                            <input type="text" id="storeAddress" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="storePhone">Phone</label>
+                            <input type="text" id="storePhone" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="storeCoordinates">Coordinates (Lat, Long)</label>
+                            <input type="text" id="storeCoordinates" placeholder="e.g. 40.7128,-74.0060">
+                        </div>
+                        <button type="submit" class="btn">Save Store</button>
+                        <button type="button" id="cancelStoreBtn" class="btn btn-secondary">Cancel</button>
+                    </form>
+                </div>
+                <div class="stores-list">
+                    <table id="storesTable">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Name</th>
+                                <th>Address</th>
+                                <th>Phone</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Store data will be populated here -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <!-- Deliveries Tab -->
+            <div class="tab-content" id="deliveries">
+                <h2>Track Deliveries</h2>
+                <div class="action-bar">
+                    <button id="assignDeliveryBtn" class="btn">Assign New Delivery</button>
+                </div>
+                <div class="delivery-form" id="deliveryForm" style="display: none;">
+                    <h3>Assign New Delivery</h3>
+                    <form id="newDeliveryForm">
+                        <div class="form-group">
+                            <label for="deliveryStore">Store</label>
+                            <select id="deliveryStore" required>
+                                <!-- Store options will be populated here -->
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="deliveryWorker">Worker</label>
+                            <select id="deliveryWorker" required>
+                                <option value="worker1">Worker 1</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="deliveryAddress">Delivery Address</label>
+                            <input type="text" id="deliveryAddress" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="deliveryDetails">Details</label>
+                            <textarea id="deliveryDetails" rows="3"></textarea>
+                        </div>
+                        <button type="submit" class="btn">Assign Delivery</button>
+                        <button type="button" id="cancelDeliveryBtn" class="btn btn-secondary">Cancel</button>
+                    </form>
+                </div>
+                <div class="deliveries-list">
+                    <table id="deliveriesTable">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Store</th>
+                                <th>Worker</th>
+                                <th>Address</th>
+                                <th>Status</th>
+                                <th>Date</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Delivery data will be populated here -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <!-- Mileage Tab -->
+            <div class="tab-content" id="mileage">
+                <h2>Motorcycle Mileage Tracking</h2>
+                <div class="action-bar">
+                    <button id="addMileageBtn" class="btn">Add Mileage Entry</button>
+                </div>
+                <div class="mileage-form" id="mileageForm" style="display: none;">
+                    <h3>Add Mileage Entry</h3>
+                    <form id="newMileageForm">
+                        <div class="form-group">
+                            <label for="mileageWorker">Worker</label>
+                            <select id="mileageWorker" required>
+                                <option value="worker1">Worker 1</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="mileageDate">Date</label>
+                            <input type="date" id="mileageDate" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="startKm">Starting Kilometers</label>
+                            <input type="number" id="startKm" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="endKm">Ending Kilometers</label>
+                            <input type="number" id="endKm" required>
+                        </div>
+                        <button type="submit" class="btn">Save Entry</button>
+                        <button type="button" id="cancelMileageBtn" class="btn btn-secondary">Cancel</button>
+                    </form>
+                </div>
+                <div class="mileage-list">
+                    <table id="mileageTable">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Worker</th>
+                                <th>Date</th>
+                                <th>Starting KM</th>
+                                <th>Ending KM</th>
+                                <th>Total KM</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Mileage data will be populated here -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <!-- Statistics Tab -->
+            <div class="tab-content" id="statistics">
+                <h2>Delivery Statistics</h2>
+                <div class="stats-filters">
+                    <div class="form-group">
+                        <label for="statsPeriod">Period</label>
+                        <select id="statsPeriod">
+                            <option value="week">Weekly</option>
+                            <option value="month">Monthly</option>
+                        </select>
+                    </div>
+                    <button id="generateStatsBtn" class="btn">Generate Statistics</button>
+                </div>
+                <div class="stats-container">
+                    <div class="stats-chart">
+                        <h3>Deliveries by Store</h3>
+                        <canvas id="storeDeliveriesChart"></canvas>
+                    </div>
+                    <div class="stats-chart">
+                        <h3>Daily Deliveries</h3>
+                        <canvas id="dailyDeliveriesChart"></canvas>
+                    </div>
+                    <div class="stats-table">
+                        <h3>Store Performance</h3>
+                        <table id="storeStatsTable">
+                            <thead>
+                                <tr>
+                                    <th>Store</th>
+                                    <th>Deliveries</th>
+                                    <th>Avg. Delivery Time</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- Stats data will be populated here -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="database.js"></script>
+    <script src="manager.js"></script>
+</body>
+</html>

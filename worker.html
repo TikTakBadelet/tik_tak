@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Worker Dashboard - Delivery Management System</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="worker.css">
+</head>
+<body>
+    <header>
+        <div class="logo">Delivery Management System</div>
+        <div class="user-info">
+            <span id="userDisplay"></span>
+            <button id="logoutBtn" class="btn-logout">Logout</button>
+        </div>
+    </header>
+    
+    <div class="container">
+        <div class="sidebar">
+            <ul class="nav-menu">
+                <li class="nav-item active" data-tab="deliveries">My Deliveries</li>
+                <li class="nav-item" data-tab="mileage">Mileage Tracking</li>
+                <li class="nav-item" data-tab="map">Navigation</li>
+            </ul>
+        </div>
+        
+        <div class="content">
+            <!-- Deliveries Tab -->
+            <div class="tab-content active" id="deliveries">
+                <h2>My Deliveries</h2>
+                <div class="delivery-filters">
+                    <div class="form-group">
+                        <label for="statusFilter">Status</label>
+                        <select id="statusFilter">
+                            <option value="all">All</option>
+                            <option value="Assigned">Assigned</option>
+                            <option value="In Progress">In Progress</option>
+                            <option value="Completed">Completed</option>
+                        </select>
+                    </div>
+                    <button id="filterDeliveriesBtn" class="btn">Filter</button>
+                </div>
+                <div class="deliveries-list">
+                    <table id="workerDeliveriesTable">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Store</th>
+                                <th>Address</th>
+                                <th>Status</th>
+                                <th>Date</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Delivery data will be populated here -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <!-- Mileage Tab -->
+            <div class="tab-content" id="mileage">
+                <h2>Mileage Tracking</h2>
+                <div class="action-bar">
+                    <button id="addWorkerMileageBtn" class="btn">Add Mileage Entry</button>
+                </div>
+                <div class="mileage-form" id="workerMileageForm" style="display: none;">
+                    <h3>Add Mileage Entry</h3>
+                    <form id="newWorkerMileageForm">
+                        <div class="form-group">
+                            <label for="workerMileageDate">Date</label>
+                            <input type="date" id="workerMileageDate" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="workerStartKm">Starting Kilometers</label>
+                            <input type="number" id="workerStartKm" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="workerEndKm">Ending Kilometers</label>
+                            <input type="number" id="workerEndKm" required>
+                        </div>
+                        <button type="submit" class="btn">Save Entry</button>
+                        <button type="button" id="cancelWorkerMileageBtn" class="btn btn-secondary">Cancel</button>
+                    </form>
+                </div>
+                <div class="mileage-list">
+                    <table id="workerMileageTable">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Starting KM</th>
+                                <th>Ending KM</th>
+                                <th>Total KM</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Mileage data will be populated here -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <!-- Map Tab -->
+            <div class="tab-content" id="map">
+                <h2>Navigation</h2>
+                <div class="map-container">
+                    <div class="delivery-selector">
+                        <div class="form-group">
+                            <label for="deliveryToNavigate">Select Delivery</label>
+                            <select id="deliveryToNavigate">
+                                <!-- Delivery options will be populated here -->
+                            </select>
+                        </div>
+                        <button id="navigateBtn" class="btn">Navigate</button>
+                    </div>
+                    <div id="mapDisplay">
+                        <!-- Map will be displayed here -->
+                        <div class="map-placeholder">
+                            <p>Select a delivery and click Navigate to view directions.</p>
+                            <p class="note">Note: In a real application, this would integrate with a mapping API like Google Maps.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="database.js"></script>
+    <script src="worker.js"></script>
+</body>
+</html>
